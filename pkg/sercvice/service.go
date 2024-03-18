@@ -14,3 +14,7 @@ type PostsService interface {
 type Sercive struct {
 	PostsService
 }
+
+func NewService() *Sercive {
+	return &Sercive{}
+}

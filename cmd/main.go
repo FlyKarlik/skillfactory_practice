@@ -21,16 +21,17 @@ func main() {
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-	mongoClient, err := repository.NewMongoDb(os.Getenv("MONGO_URL"), os.Getenv("DATABASE_NAME"))
-	if err != nil {
-		log.Fatal(err)
-	}
-	repo := repository.NewRepository(db, mongoClient)
-	//В сервисе меняем базу данных(в этом примере mongodb)
-	service := &service.Sercive{
-		PostsService: service.NewMongoService(repo.PostsRepositoryMongo),
-	}
-	handler := handler.NewHandler(service)
+	//	mongoClient, err := repository.NewMongoDb(os.Getenv("MONGO_URL"), os.Getenv("DATABASE_NAME"))
+	//	if err != nil {
+	//		log.Fatal(err)
+	//	}
+	repo := repository.NewRepository()
+	//Выбираем конкретную бд
+	repo.PostsRepository = repository.NewPostsPosgres(db)
+	srv := service.NewService()
+	//Инициализируем сервис
+	srv.PostsService = service.NewPostgresService(repo)
+	handler := handler.NewHandler(srv)
 	server := server.NewServer()
 	if err := server.Run("8080", handler.InitRoutes()); err != nil {
 		log.Fatal(err.Error())

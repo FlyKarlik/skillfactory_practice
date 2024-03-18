@@ -7,10 +7,10 @@ import (
 )
 
 type MongoPosts struct {
-	repo repository.PostsRepositoryMongo
+	repo repository.PostsRepository
 }
 
-func NewMongoService(repo repository.PostsRepositoryMongo) *MongoPosts {
+func NewMongoService(repo repository.PostsRepository) *MongoPosts {
 	return &MongoPosts{
 		repo: repo,
 	}

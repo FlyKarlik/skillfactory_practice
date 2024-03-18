@@ -7,10 +7,10 @@ import (
 )
 
 type PostgresPosts struct {
-	repo repository.PostsRepositoryPostgres
+	repo repository.PostsRepository
 }
 
-func NewPostgresService(repo repository.PostsRepositoryPostgres) *PostgresPosts {
+func NewPostgresService(repo repository.PostsRepository) *PostgresPosts {
 	return &PostgresPosts{
 		repo: repo,
 	}
